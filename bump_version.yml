@@ -14,4 +14,9 @@ jobs:
           fetch-depth: 0
       - name: Bump manifest
         run: scripts/bump_version.sh
-
+      - name: Commit manifest
+        run: |
+          # git config --global user.name 'release'
+          # git config --global user.email 'your-username@users.noreply.github.com'
+          git commit -am "Manifest bumped"
+          git push
