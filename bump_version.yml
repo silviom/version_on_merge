@@ -16,7 +16,7 @@ jobs:
         run: scripts/bump_version.sh
       - name: Commit manifest
         run: |
-          git config --global user.name 'release'
-          git config --global user.email 'release@foo.com'
+          git config user.name 'release'
+          git config user.email 'release@foo.com'
           git commit -am "Manifest bumped"
           git push
