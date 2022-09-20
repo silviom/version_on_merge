@@ -4,10 +4,14 @@ on:
     branches:
       - main
 jobs:
-  version:
-    name: Version
+  bump_version:
+    name: Bump version
     runs-on: ubuntu-20.04
     steps:
+      - name: ref_name
+        run: echo ${{github.ref_name}}
+      - name: github
+        run: echo ${{github}} | jq .
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -22,9 +26,18 @@ jobs:
           commit-message: manifest bumped
           branch: bump_manifest
           delete-branch: true
-      - uses: reitermarkus/automerge@v2
-        with:
-          merge-method: squash
-          squash-commit-title: "[skip ci] ${{ steps.cpr.outputs.pull-request-number }} Automerge Bump Manifest"
-          pull-request: ${{ steps.cpr.outputs.pull-request-number }}
+      #   - name: Merge Pull Request
+      #     uses: juliangruber/merge-pull-request-action@v1
+      #     with:
+      #       github-token: ${{ secrets.GITHUB_TOKEN }}
+      #       number: 1
+      #       method: squash
+      #       repo: juliangruber/octokit-action
+
+
+      # - uses: reitermarkus/automerge@v2
+      #   with:
+      #     merge-method: squash
+      #     squash-commit-title: "[skip ci] ${{ steps.cpr.outputs.pull-request-number }} Automerge Bump Manifest"
+      #     pull-request: ${{ steps.cpr.outputs.pull-request-number }}
           
