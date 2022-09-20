@@ -25,6 +25,6 @@ jobs:
       - uses: reitermarkus/automerge@v2
         with:
           merge-method: squash
-          do-not-merge-labels: never-merge
+          squash-commit-title: "[skip ci] ${{ steps.cpr.outputs.pull-request-number }} Automerge Bump Manifest"
           pull-request: ${{ steps.cpr.outputs.pull-request-number }}
           
