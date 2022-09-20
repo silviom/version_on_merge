@@ -14,9 +14,17 @@ jobs:
           fetch-depth: 0
       - name: Bump manifest
         run: scripts/bump_version.sh
-      - name: Commit manifest
-        run: |
-          git config user.name 'release'
-          git config user.email 'release@foo.com'
-          git commit -am "Manifest bumped"
-          git push
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          add-paths: manifest.json
+          commit-message: manifest bumped
+          branch: bump_manifest
+          delete-branch: true
+      - uses: reitermarkus/automerge@v2
+        with:
+          merge-method: squash
+          do-not-merge-labels: never-merge
+          pull-request: ${{ steps.cpr.outputs.pull-request-number }}
+          
