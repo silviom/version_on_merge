@@ -8,10 +8,8 @@ jobs:
     name: Bump version
     runs-on: ubuntu-20.04
     steps:
-      - name: ref_name
-        run: echo ${{github.ref_name}}
       - name: github
-        run: echo ${{github}} | jq .
+        run: echo ${{toJSON(github)}} | jq .
       - name: Checkout
         uses: actions/checkout@v3
         with:
